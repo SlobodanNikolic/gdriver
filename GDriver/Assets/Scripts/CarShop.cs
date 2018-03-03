@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarShop : MonoBehaviour {
     public GameObject Item1;
@@ -12,67 +13,108 @@ public class CarShop : MonoBehaviour {
     public GameObject Item7;
     public GameObject Item8;
     public GameObject Item9;
+    public GameObject NotEnoughCoins;
+    public GameObject BuyPopUp;
+    public Text CoinsText;
+    
 
-    int[] unlocketCars;
+    static int[] CAR_PRICES;
+    GameObject[] items;
+
+    int[] unlockedCars;
+
+    int carToBuy;
+    int coins;
+
     public void Start()
     {
-        unlocketCars = new int[9];
-        int unlocked = PlayerPrefs.GetInt("car" + 1 + "unclocked", 1);
-        unlocketCars[0] = unlocked;
-        Item1.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 2 + "unclocked", 0);
-        unlocketCars[1] = unlocked;
-        Item2.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 3 + "unclocked", 0);
-        unlocketCars[2] = unlocked;
-        Item3.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 4 + "unclocked", 0);
-        unlocketCars[3] = unlocked;
-        Item4.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 5 + "unclocked", 0);
-        unlocketCars[4] = unlocked;
-        Item5.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 6 + "unclocked", 0);
-        unlocketCars[5] = unlocked;
-        Item6.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 7 + "unclocked", 0);
-        unlocketCars[6] = unlocked;
-        Item7.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 8 + "unclocked", 0);
-        unlocketCars[7] = unlocked;
-        Item8.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
-        unlocked = PlayerPrefs.GetInt("car" + 9 + "unclocked", 0);
-        unlocketCars[8] = unlocked;
-        Item9.transform.Find("Lock").gameObject.SetActive(unlocked == 0);
+        PlayerPrefs.SetInt("coins", 1000);
+        coins = PlayerPrefs.GetInt("coins");
+        CoinsText.text = coins + "";
+        //Set car prices
+        CAR_PRICES = new int[9];
+        CAR_PRICES[0] = 0;
+        CAR_PRICES[1] = 100;
+        CAR_PRICES[2] = 200;
+        CAR_PRICES[3] = 400;
+        CAR_PRICES[4] = 600;
+        CAR_PRICES[5] = 1000;
+        CAR_PRICES[6] = 1500;
+        CAR_PRICES[7] = 2000;
+        CAR_PRICES[8] = 5000;
 
-        int selected = PlayerPrefs.GetInt("selectedcar", 1);
-            Item1.transform.Find("Selected").gameObject.SetActive(selected == 1);
-            Item2.transform.Find("Selected").gameObject.SetActive(selected == 2);
-            Item3.transform.Find("Selected").gameObject.SetActive(selected == 3);
-            Item4.transform.Find("Selected").gameObject.SetActive(selected == 4);
-            Item5.transform.Find("Selected").gameObject.SetActive(selected == 5);
-            Item6.transform.Find("Selected").gameObject.SetActive(selected == 6);
-            Item7.transform.Find("Selected").gameObject.SetActive(selected == 7);
-            Item8.transform.Find("Selected").gameObject.SetActive(selected == 8);
-            Item9.transform.Find("Selected").gameObject.SetActive(selected == 9);
-        
+        items = new GameObject[9];
+        items[0] = Item1;
+        items[1] = Item2;
+        items[2] = Item3;
+        items[3] = Item4;
+        items[4] = Item5;
+        items[5] = Item6;
+        items[6] = Item7;
+        items[7] = Item8;
+        items[8] = Item9;
+
+
+        unlockedCars = new int[9];
+        for (int i = 0;i < items.Length; i++)
+        {
+            int unlocked = PlayerPrefs.GetInt("car" + (i+1) + "unclocked", 0);
+            if (i == 0) unlocked = 1;
+            unlockedCars[i] = unlocked;
+            items[i].transform.Find("Lock").gameObject.SetActive(unlocked == 0);
+            items[i].transform.Find("Price").gameObject.SetActive(unlocked == 0);
+            items[i].transform.Find("Coin").gameObject.SetActive(unlocked == 0);
+            items[i].transform.Find("Price").GetComponent<Text>().text = CAR_PRICES[i] + "";
+            int selected = PlayerPrefs.GetInt("selectedcar", 1);
+            items[i].transform.Find("Selected").gameObject.SetActive(selected == i+1);
+        }
     }
     public void ClickItem(int item)
     {
-
-        int unlocked = unlocketCars[item-1];
+        
+        int unlocked = unlockedCars[item-1];
+        //Select car
         if (unlocked == 1)
         {
-            Item1.transform.Find("Selected").gameObject.SetActive(item == 1);
-            Item2.transform.Find("Selected").gameObject.SetActive(item == 2);
-            Item3.transform.Find("Selected").gameObject.SetActive(item == 3);
-            Item4.transform.Find("Selected").gameObject.SetActive(item == 4);
-            Item5.transform.Find("Selected").gameObject.SetActive(item == 5);
-            Item6.transform.Find("Selected").gameObject.SetActive(item == 6);
-            Item7.transform.Find("Selected").gameObject.SetActive(item == 7);
-            Item8.transform.Find("Selected").gameObject.SetActive(item == 8);
-            Item9.transform.Find("Selected").gameObject.SetActive(item == 9);
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i].transform.Find("Selected").gameObject.SetActive(item == i+1);
+            }
             PlayerPrefs.SetInt("selectedcar", item);
         }
+        //Buy car
+        else
+        {
+            coins = PlayerPrefs.GetInt("coins");
+            if(CAR_PRICES[item-1] > coins)
+            {
+                NotEnoughCoins.SetActive(true);
+            }
+            else
+            {
+                carToBuy = item;
+                BuyPopUp.SetActive(true);
+                BuyPopUp.transform.Find("Text").gameObject.GetComponent<Text>().text = "Buy Car " + item;
+            }
+        }
     }
+
+    public void BuyCar()
+    {
+        PlayerPrefs.SetInt("car" + carToBuy + "unclocked", 1);
+        items[carToBuy-1].transform.Find("Lock").gameObject.SetActive(false);
+        items[carToBuy-1].transform.Find("Price").gameObject.SetActive(false);
+        items[carToBuy-1].transform.Find("Coin").gameObject.SetActive(false);
+        unlockedCars[carToBuy - 1] = 1;
+        coins = coins - CAR_PRICES[carToBuy - 1];
+        CoinsText.text = coins + "";
+        PlayerPrefs.SetInt("coins", coins);
+        BuyPopUp.SetActive(false);
+    }
+    public void Cancel()
+    {
+        NotEnoughCoins.SetActive(false);
+        BuyPopUp.SetActive(false);
+    }
+
 }
