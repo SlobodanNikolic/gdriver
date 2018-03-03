@@ -118,10 +118,13 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		lastTile.localPosition = new Vector3 (0f, topTilePos + 19f, 0f);
-		topTilePos = topTilePos + 19f;
-		lastTile = other.transform;
-
+		Debug.Log (other.name);
+		Debug.Log (other.tag);
+		if (other.tag == "TileCollider") {
+			lastTile.localPosition = new Vector3 (0f, topTilePos + 19f, 0f);
+			topTilePos = topTilePos + 19f;
+			lastTile = other.transform;
+		}
 	}
 
 
