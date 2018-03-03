@@ -54,6 +54,7 @@
      <Compile Include="Assets\Samples\Boot.cs" />
      <Compile Include="Assets\Samples\Continuous\ContinuousDemo.cs" />
      <Compile Include="Assets\Samples\Simple\SimpleDemo.cs" />
+     <Compile Include="Assets\Scripts\CarRepair.cs" />
      <Compile Include="Assets\Scripts\CarShop.cs" />
      <Compile Include="Assets\Scripts\Create\CreateBarcode.cs" />
      <Compile Include="Assets\Scripts\External\WizUtils\Logger\Log.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\Gameplay\CameraShake.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Easing.cs" />
      <Compile Include="Assets\Scripts\Gameplay\FPSDisplay.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Game.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Player.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IParser.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IScanner.cs" />
@@ -75,6 +77,7 @@
      <Compile Include="Assets\Scripts\Scanner\Scanner.cs" />
      <Compile Include="Assets\Scripts\Scanner\ScannerStatus.cs" />
      <Compile Include="Assets\Scripts\Settings\ScannerSettings.cs" />
+     <Compile Include="Assets\Scripts\SoundControl.cs" />
      <Compile Include="Assets\Scripts\Webcam\UnityWebcam.cs" />
      <None Include="Assets\Samples\ProjectSettings\ProjectVersion.txt" />
  <Reference Include="UnityEngine.UI">

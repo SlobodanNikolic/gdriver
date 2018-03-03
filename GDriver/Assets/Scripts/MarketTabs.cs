@@ -22,5 +22,8 @@ public class MarketTabs : MonoBehaviour {
         CarShop.SetActive(false);
         CarRepair.SetActive(true);
     }
+    public void Close()
+    {
 
+    }
 }

@@ -67,6 +67,7 @@ public class CarShop : MonoBehaviour {
             items[i].transform.Find("Price").GetComponent<Text>().text = CAR_PRICES[i] + "";
             int selected = PlayerPrefs.GetInt("selectedcar", 1);
             items[i].transform.Find("Selected").gameObject.SetActive(selected == i+1);
+            items[i].transform.Find("Background").gameObject.SetActive(selected != i + 1);
         }
     }
     public void ClickItem(int item)
@@ -79,6 +80,7 @@ public class CarShop : MonoBehaviour {
             for (int i = 0; i < items.Length; i++)
             {
                 items[i].transform.Find("Selected").gameObject.SetActive(item == i+1);
+                items[i].transform.Find("Background").gameObject.SetActive(item != i + 1);
             }
             PlayerPrefs.SetInt("selectedcar", item);
         }

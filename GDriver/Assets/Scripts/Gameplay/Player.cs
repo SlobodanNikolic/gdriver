@@ -49,6 +49,8 @@ public class Player : MonoBehaviour {
 	public Vector3 lTPos;
 	public Vector3 rTPos;
 
+	public bool playSoundOnce = true;
+
 
 	void Awake(){
 		// Turn off v-sync
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour {
 			speed -= 2f;
 			hitParticles.Play();
 			cam.notShaking = false;
+			SoundControl.instance.PlaySound (SoundControl.instance.carCrash);
 			Invoke ("StopShaking", 0.5f);
 //		}
 	}
@@ -109,6 +112,11 @@ public class Player : MonoBehaviour {
 
 		if(canDrive && playing){
 
+			if (playSoundOnce) {
+				SoundControl.instance.engineStill.Stop ();
+				SoundControl.instance.engineRunning.Play ();
+				playSoundOnce = false;
+			}
 			stamina -= staminaConsumption;
 
 			if (stamina <= 0f) {
@@ -125,7 +133,10 @@ public class Player : MonoBehaviour {
 			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
 
 			if (Input.GetMouseButton (0)) {
-
+				if (Input.GetMouseButtonDown (0)) {
+					SoundControl.instance.PlaySound (SoundControl.instance.schreech);
+				}
+					
 //				if (oneTimeTrail) {
 //					lastTrailLeft = Instantiate (trailLeft, lTPos, Quaternion.identity, this.transform);
 //					lastTrailLeft.SetActive (true);
