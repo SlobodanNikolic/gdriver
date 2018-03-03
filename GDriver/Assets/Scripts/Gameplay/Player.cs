@@ -39,6 +39,17 @@ public class Player : MonoBehaviour {
 	public float scorePlus;
 	public float speedMinus;
 
+	public GameObject trailLeft;
+	public GameObject trailRight;
+
+	public GameObject lastTrailLeft;
+	public GameObject lastTrailRight;
+	public bool oneTimeTrail;
+
+	public Vector3 lTPos;
+	public Vector3 rTPos;
+
+
 	void Awake(){
 		// Turn off v-sync
 		QualitySettings.vSyncCount = 0;
@@ -52,6 +63,8 @@ public class Player : MonoBehaviour {
 		carPos = carTrans.position;
 		carRot = carTrans.rotation.eulerAngles;
 		originalPos = camTransform.localPosition;
+		lTPos = trailLeft.transform.localPosition;
+		rTPos = trailRight.transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -112,6 +125,18 @@ public class Player : MonoBehaviour {
 			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
 
 			if (Input.GetMouseButton (0)) {
+
+//				if (oneTimeTrail) {
+//					lastTrailLeft = Instantiate (trailLeft, lTPos, Quaternion.identity, this.transform);
+//					lastTrailLeft.SetActive (true);
+//					lastTrailRight = Instantiate (trailLeft, lTPos, Quaternion.identity, this.transform);
+//					lastTrailRight.SetActive (true);
+//					oneTimeTrail = false;
+//				}
+
+//				trailLeft.SetActive (true);
+//				trailRight.SetActive (true);
+
 				//rotate object Right & Left
 				if (Input.mousePosition.x > 540) {
 					carRot.z -= turnSpeed;
@@ -119,6 +144,14 @@ public class Player : MonoBehaviour {
 					carRot.z += turnSpeed;
 				}
 			}
+
+//			if (Input.GetMouseButtonUp(0)) {
+//				if (lastTrailLeft != null) {
+//					lastTrailLeft.transform.SetParent (null);
+//					lastTrailRight.transform.SetParent (null);
+//				}
+//					oneTimeTrail = true;
+//			}
 
 			//move object Forward & Backward
 
