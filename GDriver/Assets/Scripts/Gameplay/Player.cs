@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -31,6 +32,11 @@ public class Player : MonoBehaviour {
 
 
 	Vector3 originalPos;
+	public Image fuelBar;
+	public Image staminaBar;
+	public Text scoreLabel;
+	public float score = 0f;
+	public float scorePlus;
 
 	void Awake(){
 		// Turn off v-sync
@@ -82,10 +88,12 @@ public class Player : MonoBehaviour {
 	void FixedUpdate ()
 	{
 		stamina -= staminaConsumption;
+
 		if (stamina <= 0f) {
 			stamina = 0f;
 			StartCoroutine (Stop (5f));
 		}
+		
 			
 		if (Input.GetMouseButtonUp(0) && firstTap && canDrive) {
 			firstTap = false;
@@ -125,8 +133,13 @@ public class Player : MonoBehaviour {
 			//Apply
 			carTrans.position = carPos;
 			carTrans.rotation = Quaternion.Euler (carRot);
+			score += scorePlus;
+			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
 
 		}
+
+		fuelBar.fillAmount = fuel;
+		staminaBar.fillAmount = stamina;
 	}
 
 	public IEnumerator Stop(float time){
