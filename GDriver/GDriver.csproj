@@ -76,6 +76,9 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>Assets/Scripts/zxing.unity.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -84,8 +87,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Samples\Boot.cs" />
+    <Compile Include="Assets\Samples\Continuous\ContinuousDemo.cs" />
+    <Compile Include="Assets\Samples\Simple\SimpleDemo.cs" />
+    <Compile Include="Assets\Scripts\CarRepair.cs" />
     <Compile Include="Assets\Scripts\CarShop.cs" />
+    <Compile Include="Assets\Scripts\Create\CreateBarcode.cs" />
+    <Compile Include="Assets\Scripts\External\WizUtils\Logger\Log.cs" />
+    <Compile Include="Assets\Scripts\External\WizUtils\Logger\LogLevel.cs" />
+    <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\ConsoleService.cs" />
+    <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\FileService.cs" />
+    <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\ILogService.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\CameraShake.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Easing.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\FPSDisplay.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\Player.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IParser.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IScanner.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IWebcam.cs" />
     <Compile Include="Assets\Scripts\MarketTabs.cs" />
+    <Compile Include="Assets\Scripts\Parser\ParserResult.cs" />
+    <Compile Include="Assets\Scripts\Parser\ZXingParser.cs" />
+    <Compile Include="Assets\Scripts\Scanner\Scanner.cs" />
+    <Compile Include="Assets\Scripts\Scanner\ScannerStatus.cs" />
+    <Compile Include="Assets\Scripts\Settings\ScannerSettings.cs" />
+    <Compile Include="Assets\Scripts\Webcam\UnityWebcam.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Samples\ProjectSettings\ProjectVersion.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
