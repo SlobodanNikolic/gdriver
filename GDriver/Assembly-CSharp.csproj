@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\FileService.cs" />
      <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\ILogService.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\CameraShake.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Easing.cs" />
      <Compile Include="Assets\Scripts\Gameplay\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Player.cs" />

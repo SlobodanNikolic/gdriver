@@ -23,11 +23,20 @@ public class Player : MonoBehaviour {
 	public Transform backupRoad;
 	public List<Transform> roadTileList;
 	public Transform lastTile;
+	public ParticleSystem hitParticles;
+
+	public Transform camTransform;
+	private Vector3 camStartPos;
+	public CameraFollow cam;
+
+
+	Vector3 originalPos;
 
 	void Awake(){
 		// Turn off v-sync
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
+		startPos = transform.position;
 	}
 
 	// Use this for initialization
@@ -35,6 +44,7 @@ public class Player : MonoBehaviour {
 		carTrans = transform;
 		carPos = carTrans.position;
 		carRot = carTrans.rotation.eulerAngles;
+		originalPos = camTransform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -52,6 +62,21 @@ public class Player : MonoBehaviour {
 //		}
 
 
+	}
+
+	public void CarHit(){
+//		if(!hitParticles.isPlaying)
+//		{
+			speed -= 2f;
+			hitParticles.Play();
+			cam.notShaking = false;
+			Invoke ("StopShaking", 0.5f);
+//		}
+	}
+
+	public void StopShaking(){
+		cam.notShaking = true;
+		speed += 2f;
 	}
 
 	void FixedUpdate ()
@@ -124,8 +149,9 @@ public class Player : MonoBehaviour {
 			lastTile.localPosition = new Vector3 (0f, topTilePos + 19f, 0f);
 			topTilePos = topTilePos + 19f;
 			lastTile = other.transform;
+		} else {
+			CarHit ();
 		}
 	}
-
 
 }
