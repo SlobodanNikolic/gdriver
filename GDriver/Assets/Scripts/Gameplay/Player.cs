@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	public Text scoreLabel;
 	public float score = 0f;
 	public float scorePlus;
+	public float speedMinus;
 
 	void Awake(){
 		// Turn off v-sync
@@ -87,13 +88,6 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		stamina -= staminaConsumption;
-
-		if (stamina <= 0f) {
-			stamina = 0f;
-			StartCoroutine (Stop (5f));
-		}
-		
 			
 		if (Input.GetMouseButtonUp(0) && firstTap && canDrive) {
 			firstTap = false;
@@ -101,6 +95,13 @@ public class Player : MonoBehaviour {
 		}
 
 		if(canDrive && playing){
+
+			stamina -= staminaConsumption;
+
+			if (stamina <= 0f) {
+				stamina = 0f;
+				StartCoroutine (Stop (5f));
+			}
 
 			fuel -= fuelConsumption;
 			if (fuel < 0f) {
@@ -138,16 +139,14 @@ public class Player : MonoBehaviour {
 
 		}
 
-		fuelBar.fillAmount = fuel;
-		staminaBar.fillAmount = stamina;
+		fuelBar.fillAmount = fuel/100f;
+		staminaBar.fillAmount = stamina/100f;
 	}
 
 	public IEnumerator Stop(float time){
 
-		for (float i = 0f; i <= time;) {
-			i += Time.deltaTime;
-			float currentTime = Mathf.Min (i / time, 1f);
-			speed = Easing.EaseInBounce (speed, 0f, currentTime); 
+		while(speed > 0f){
+			speed -= speedMinus; 
 
 			yield return null;
 		}
