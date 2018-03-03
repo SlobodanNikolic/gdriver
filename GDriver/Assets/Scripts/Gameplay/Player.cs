@@ -134,7 +134,7 @@ public class Player : MonoBehaviour {
 		for (float i = 0f; i <= time;) {
 			i += Time.deltaTime;
 			float currentTime = Mathf.Min (i / time, 1f);
-			speed = Easing.EaseInBounce (speed, 0f, currentTime);
+			speed = Easing.EaseInBounce (speed, 0f, currentTime); 
 
 			yield return null;
 		}
