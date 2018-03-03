@@ -391,11 +391,11 @@ RegisterBuiltinTypes();
 	RegisterClass<LevelGameManager>();
 	//62. FlareLayer
 	RegisterClass<FlareLayer>();
-	//63. RenderSettings
-	RegisterClass<RenderSettings>();
-	//64. LightmapSettings
-	RegisterClass<LightmapSettings>();
-	//65. Light
+	//63. Light
 	RegisterClass<Light>();
+	//64. RenderSettings
+	RegisterClass<RenderSettings>();
+	//65. LightmapSettings
+	RegisterClass<LightmapSettings>();
 
 }
