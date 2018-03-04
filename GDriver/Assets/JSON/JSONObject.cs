@@ -11,12 +11,13 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System;
 /*
- * http://www.opensource.org/licenses/lgpl-2.1.php
- * JSONObject class v.1.4.1
- * for use with Unity
- * Copyright Matt Schoen 2010 - 2013
- */
+* http://www.opensource.org/licenses/lgpl-2.1.php
+* JSONObject class v.1.4.1
+* for use with Unity
+* Copyright Matt Schoen 2010 - 2013
+*/
 
 public class JSONObject {
 #if POOLING
@@ -163,7 +164,13 @@ public class JSONObject {
 #endif
 		return new JSONObject();
 	}
-	public static JSONObject Create(Type t) {
+
+    public static explicit operator int(JSONObject v)
+    {
+        throw new NotImplementedException();
+    }
+
+    public static JSONObject Create(Type t) {
 		JSONObject obj = Create();
 		obj.type = t;
 		switch(t) {

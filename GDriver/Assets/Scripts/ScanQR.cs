@@ -14,6 +14,12 @@ public class ScanQR : MonoBehaviour
     public RawImage Image;
     public AudioSource Audio;
     private float RestartTime;
+    public GameObject list;
+    public GameObject gas;
+    public GameObject energy;
+    public GameObject coins;
+    public GameObject listItem;
+    public GameObject qrResult;
 
     // Disable Screen Rotation on that screen
     void Awake()
@@ -123,13 +129,87 @@ public class ScanQR : MonoBehaviour
 
     public void ParseQRContent(String json)
     {
+        qrResult.SetActive(true);
+
        // QRContent content = new QRContent();
         JSONObject jsonObject = new JSONObject(json);
         print(jsonObject.GetField("time"));
         print(jsonObject.GetField("location"));
+        int novcici = 0;
+
         foreach (JSONObject jsonItem in jsonObject.GetField("items").list)
         {
+            // 1 - CocaCola 17
+            // 2 - G-Drive Energy 29
+            // 3 - VodaVoda 5
+            // 4 - Dizel 45
+            // 5 - Bananica  7
+            // 6 - Politika 14
+            int item = Int32.Parse(jsonItem.GetField("id").ToString());
+            int num = 0;
+            String name = "";
             print(jsonItem.GetField("id"));
+            if(item == 1)
+            {
+                num = 17;
+                name = "CocaCola";
+            } else if(item == 2)
+            {
+                num = 29;
+                name = "G-Drive Energy";
+            }
+            else if (item == 3)
+            {
+                num = 5;
+                name = "VodaVoda";
+            }
+            else if (item == 4)
+            {
+                num = 45;
+                name = "Dizel";
+            }
+            else if (item == 5)
+            {
+                num = 7;
+                name = "Bananica";
+            }
+            else if (item == 6)
+            {
+                num = 19;
+                name = "Espresso";
+            }
+            else if (item == 7)
+            {
+                num = 14;
+                name = "Politika";
+            }
+            else if (item == 8)
+            {
+                num = 50;
+                name = "Benzin 95";
+            }
+            else if (item == 9)
+            {
+                num = 65;
+                name = "Benzin G-Drive";
+            }
+            novcici += num;
+            GameObject gameObject = Instantiate(listItem, list.transform) as GameObject;
+            gameObject.transform.Find("Name").GetComponent<Text>().text = name;
+            gameObject.transform.Find("Price").GetComponent<Text>().text = num + "";
+            if (name.Contains("G-Drive"))
+            {
+                Color color = Color.grey;
+                ColorUtility.TryParseHtmlString("#e05206",out color);
+                gameObject.transform.Find("Name").GetComponent<Text>().color = color;
+                gameObject.transform.Find("Price").GetComponent<Text>().color = color;
+            }
         }
+        int gasNum = novcici / 3;
+        int energyNum = novcici / 3 * 2;
+        gas.GetComponent<Text>().text = gasNum + "";
+        energy.GetComponent<Text>().text = energyNum + "";
+        coins.GetComponent<Text>().text = novcici + "";
+        gameObject.SetActive(false);
     }
 }
