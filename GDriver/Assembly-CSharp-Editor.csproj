@@ -53,6 +53,8 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\ParserTest.cs" />
      <Compile Include="Assets\Editor\ScannerTest.cs" />
+     <Compile Include="Assets\JSON\Editor\JSONChecker.cs" />
+     <None Include="Assets\JSON\readme.txt" />
      <None Include="Assets\Samples\ProjectSettings\ProjectVersion.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

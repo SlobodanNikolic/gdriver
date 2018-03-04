@@ -28,7 +28,7 @@ public class CarShop : MonoBehaviour {
 
     public void Start()
     {
-        PlayerPrefs.SetInt("coins", 1000);
+        //PlayerPrefs.SetInt("coins", 1000);
         coins = PlayerPrefs.GetInt("coins");
         CoinsText.text = coins + "";
         //Set car prices

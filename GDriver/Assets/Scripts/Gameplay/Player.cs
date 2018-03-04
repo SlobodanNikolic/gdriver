@@ -134,7 +134,10 @@ public class Player : MonoBehaviour {
 
 			if (Input.GetMouseButton (0)) {
 				if (Input.GetMouseButtonDown (0)) {
-					SoundControl.instance.PlaySound (SoundControl.instance.schreech);
+					int rand = Random.Range (0, 2);
+					if (rand == 0) {
+						SoundControl.instance.PlaySound (SoundControl.instance.schreech);
+					}
 				}
 					
 //				if (oneTimeTrail) {
