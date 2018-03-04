@@ -1,0 +1,67 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="CarShop">
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="Cancel"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="Cancel"/>
+			<method name="BuyCar"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+			<method name="ClickItem"/>
+		</type>
+		<type fullname="Game">
+			<method name="CloseMap"/>
+			<method name="EnergyPlus"/>
+			<method name="ScanQR"/>
+			<method name="LoadItems"/>
+			<method name="FuelPlus"/>
+			<method name="PauseOff"/>
+			<method name="ScanQR"/>
+			<method name="OpenMap"/>
+			<method name="CloseInventory"/>
+			<method name="PauseOn"/>
+			<method name="Navigate"/>
+		</type>
+		<type fullname="SimpleDemo">
+			<method name="ClickBack"/>
+			<method name="ClickStop"/>
+			<method name="ClickStart"/>
+			<method name="ClickStart"/>
+			<method name="ClickBack"/>
+			<method name="ClickStop"/>
+			<method name="ClickStart"/>
+		</type>
+		<type fullname="MarketTabs">
+			<method name="SelectTab2"/>
+			<method name="SelectTab1"/>
+		</type>
+		<type fullname="CarRepair">
+			<method name="Cancel"/>
+			<method name="RepairCar"/>
+		</type>
+		<type fullname="FuelEmpty">
+			<method name="OpenMap"/>
+		</type>
+		<type fullname="Boot">
+			<method name="OnContinuous"/>
+			<method name="OnClickSimple"/>
+		</type>
+		<type fullname="ContinuousDemo">
+			<method name="ClickBack"/>
+		</type>
+	</assembly>
+</linker>

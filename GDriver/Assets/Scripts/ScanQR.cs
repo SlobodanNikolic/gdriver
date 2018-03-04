@@ -129,6 +129,7 @@ public class ScanQR : MonoBehaviour
 
     public void ParseQRContent(String json)
     {
+		Game.instance.qRScan.SetActive (false);
         qrResult.SetActive(true);
 
        // QRContent content = new QRContent();
@@ -136,6 +137,8 @@ public class ScanQR : MonoBehaviour
         print(jsonObject.GetField("time"));
         print(jsonObject.GetField("location"));
         int novcici = 0;
+		int gasNum = 0;
+		int energyNum = 0;
 
         foreach (JSONObject jsonItem in jsonObject.GetField("items").list)
         {
@@ -145,55 +148,53 @@ public class ScanQR : MonoBehaviour
             // 4 - Dizel 45
             // 5 - Bananica  7
             // 6 - Politika 14
+
             int item = Int32.Parse(jsonItem.GetField("id").ToString());
             int num = 0;
             String name = "";
             print(jsonItem.GetField("id"));
             if(item == 1)
             {
-                num = 17;
+                num = 20;
                 name = "CocaCola";
             } else if(item == 2)
             {
-                num = 29;
+                num = 30;
                 name = "G-Drive Energy";
             }
             else if (item == 3)
             {
-                num = 5;
+                num = 10;
                 name = "VodaVoda";
             }
             else if (item == 4)
             {
-                num = 45;
-                name = "Dizel";
+                num = 100;
+                name = "G-Drive 100";
             }
             else if (item == 5)
             {
-                num = 7;
-                name = "Bananica";
+                num = 10;
+                name = "Coko Bananica";
             }
             else if (item == 6)
             {
-                num = 19;
-                name = "Espresso";
+                num = 40;
+                name = "Sendvic Piletina";
             }
             else if (item == 7)
             {
                 num = 14;
                 name = "Politika";
             }
-            else if (item == 8)
-            {
-                num = 50;
-                name = "Benzin 95";
-            }
-            else if (item == 9)
-            {
-                num = 65;
-                name = "Benzin G-Drive";
-            }
-            novcici += num;
+          	
+			if (name.Contains ("G-Drive 100")) {
+				gasNum += num;
+			} else {
+				energyNum += num;
+			}
+				
+            novcici += 1000;
             GameObject gameObject = Instantiate(listItem, list.transform) as GameObject;
             gameObject.transform.Find("Name").GetComponent<Text>().text = name;
             gameObject.transform.Find("Price").GetComponent<Text>().text = num + "";
@@ -205,11 +206,12 @@ public class ScanQR : MonoBehaviour
                 gameObject.transform.Find("Price").GetComponent<Text>().color = color;
             }
         }
-        int gasNum = novcici / 3;
-        int energyNum = novcici / 3 * 2;
+        
         gas.GetComponent<Text>().text = gasNum + "";
         energy.GetComponent<Text>().text = energyNum + "";
         coins.GetComponent<Text>().text = novcici + "";
+		Game.instance.player.inventoryFuel += gasNum;
+		Game.instance.player.inventoryEnergy += energyNum;
         int mycoins = PlayerPrefs.GetInt("coins", 0);
         PlayerPrefs.SetInt("coins", mycoins + novcici);
         gameObject.SetActive(false);

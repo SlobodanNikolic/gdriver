@@ -54,6 +54,13 @@ public class Player : MonoBehaviour {
 	public GameObject[] zObjects;
 	public bool sleeping = false;
 	public bool noFuel = false;
+	public FuelEmpty fuelEmpty;
+	public bool canTouch;
+
+	public int points;
+
+	public int inventoryFuel;
+	public int inventoryEnergy;
 
 	void Awake(){
 		// Turn off v-sync
@@ -107,7 +114,7 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-			
+		
 		if (Input.GetMouseButtonUp(0) && firstTap && canDrive) {
 			firstTap = false;
 			playing = true;
@@ -203,7 +210,12 @@ public class Player : MonoBehaviour {
 
 			yield return null;
 		}
+		if (noFuel)
+			Game.instance.NoFuel ();
+		else if (sleeping)
+			Game.instance.NoEnergy ();
 		canDrive = false;
+		playing = false;
 
 	}
 
@@ -213,7 +225,7 @@ public class Player : MonoBehaviour {
 		if (other.tag == "TileCollider") {
 			lastTile.localPosition = new Vector3 (0f, topTilePos + 19f, 0f);
 			topTilePos = topTilePos + 19f;
-			lastTile = other.transform;
+			lastTile = other.transform.parent.transform;
 		} else {
 			CarHit ();
 		}
@@ -231,7 +243,21 @@ public class Player : MonoBehaviour {
 			}
 			yield return null;
 		}
+		for (int i = 0; i < zObjects.Length; i++)
+			zObjects [i].SetActive (false);
 
 	}
+
+	public IEnumerator BoostSpeed (float time){
+		for (float i = 0f; i <= time;) {
+			i += Time.deltaTime;
+			float currentTime = Mathf.Min (i / time, 1f);
+
+			speed = Easing.EaseInQuad (0f, 5f, currentTime);
+			yield return null;
+		}
+
+	}
+
 
 }

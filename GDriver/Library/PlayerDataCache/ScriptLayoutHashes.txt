@@ -1,5 +1,7 @@
 iOS
+406109c4d8bc6d47b4aca3bd75ada264 Assembly-CSharp.dll:.FuelEmpty
 1e26f3af5943abbf3baed53c38e03365 Assembly-CSharp.dll:.CarShop
+c96b60f68a39284a24ff99c71f8c412e Assembly-CSharp.dll:.SoundControl
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -45,6 +47,8 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
+15eeaa1d6c09c8fd3a0962ddfd754b44 Assembly-CSharp.dll:.ScanQR
+f332dba89314b2a433d88c6c9c71d3d9 Assembly-CSharp.dll:.Game
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -112,6 +116,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
+ce5c56f7f8949a102d3be41f8600c2fd Assembly-CSharp.dll:.CarRepair
 d0502c076f4a88d4e21e5de106367807 Assembly-CSharp.dll:.SimpleDemo
 d0502c076f4a88d4e21e5de106367807 Assembly-CSharp.dll:.ContinuousDemo
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -142,7 +147,4 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FPSDisplay
-c1d95ccd884ab4c8669fa81dbb2270a1 Assembly-CSharp.dll:.Player
-c96b60f68a39284a24ff99c71f8c412e Assembly-CSharp.dll:.SoundControl
-ce5c56f7f8949a102d3be41f8600c2fd Assembly-CSharp.dll:.CarRepair
-2b0a7da26181d8d68b91348374a790e4 Assembly-CSharp.dll:.Game
+cceba1676026e24d8e7af280adec79c1 Assembly-CSharp.dll:.Player
