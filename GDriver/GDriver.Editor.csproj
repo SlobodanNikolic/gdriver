@@ -140,8 +140,10 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\ParserTest.cs" />
     <Compile Include="Assets\Editor\ScannerTest.cs" />
+    <Compile Include="Assets\JSON\Editor\JSONChecker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\JSON\readme.txt" />
     <None Include="Assets\Samples\ProjectSettings\ProjectVersion.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

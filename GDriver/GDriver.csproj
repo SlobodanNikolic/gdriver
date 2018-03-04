@@ -87,6 +87,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\JSON\JSONObject.cs" />
+    <Compile Include="Assets\JSON\JSONTemplates.cs" />
+    <Compile Include="Assets\JSON\VectorTemplates.cs" />
     <Compile Include="Assets\Samples\Boot.cs" />
     <Compile Include="Assets\Samples\Continuous\ContinuousDemo.cs" />
     <Compile Include="Assets\Samples\Simple\SimpleDemo.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\ConsoleService.cs" />
     <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\FileService.cs" />
     <Compile Include="Assets\Scripts\External\WizUtils\Logger\Services\ILogService.cs" />
+    <Compile Include="Assets\Scripts\FuelEmpty.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CameraShake.cs" />
     <Compile Include="Assets\Scripts\Gameplay\Easing.cs" />
@@ -111,10 +115,12 @@
     <Compile Include="Assets\Scripts\Parser\ZXingParser.cs" />
     <Compile Include="Assets\Scripts\Scanner\Scanner.cs" />
     <Compile Include="Assets\Scripts\Scanner\ScannerStatus.cs" />
+    <Compile Include="Assets\Scripts\ScanQR.cs" />
     <Compile Include="Assets\Scripts\Settings\ScannerSettings.cs" />
     <Compile Include="Assets\Scripts\Webcam\UnityWebcam.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\JSON\readme.txt" />
     <None Include="Assets\Samples\ProjectSettings\ProjectVersion.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
