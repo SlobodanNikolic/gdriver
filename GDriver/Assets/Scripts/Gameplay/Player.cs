@@ -51,6 +51,9 @@ public class Player : MonoBehaviour {
 
 	public bool playSoundOnce = true;
 
+	public GameObject[] zObjects;
+	public bool sleeping = false;
+	public bool noFuel = false;
 
 	void Awake(){
 		// Turn off v-sync
@@ -119,14 +122,17 @@ public class Player : MonoBehaviour {
 			}
 			stamina -= staminaConsumption;
 
-			if (stamina <= 0f) {
+			if (stamina < 0f) {
 				stamina = 0f;
 				StartCoroutine (Stop (5f));
+				StartCoroutine (Sleeping ());
+				sleeping = true;
 			}
 
 			fuel -= fuelConsumption;
 			if (fuel < 0f) {
 				fuel = 0f;
+				noFuel = true;
 				StartCoroutine (Stop (5f));
 			}
 			//converting the object euler angle's magnitude from to Radians    
@@ -211,6 +217,21 @@ public class Player : MonoBehaviour {
 		} else {
 			CarHit ();
 		}
+	}
+
+	public IEnumerator Sleeping(){
+		while (sleeping) {
+			for (int i = 0; i < zObjects.Length; i++) {
+				zObjects [i].SetActive (true);
+				yield return new WaitForSeconds (0.5f);
+			}
+			for (int i = 0; i < zObjects.Length; i++) {
+				zObjects [i].SetActive (false);
+				yield return new WaitForSeconds (0.5f);
+			}
+			yield return null;
+		}
+
 	}
 
 }
