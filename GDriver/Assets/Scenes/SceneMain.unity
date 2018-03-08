@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPos: {x: 0, y: 0, z: 0}
-  speed: 0.1
+  speed: 5
   turnSpeed: 3
   fuel: 1000
   carTrans: {fileID: 0}
@@ -290,7 +290,9 @@ MonoBehaviour:
   driftPower: 0.004
   xspeepMax: 0.1
   xspeepMin: 0
-  driftFriction: 0.95
+  driftFriction: 0.96
+  driftCoef: 1
+  driftStopTime: 0.2
 --- !u!212 &17497521
 SpriteRenderer:
   m_ObjectHideFlags: 0

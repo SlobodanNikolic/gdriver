@@ -109,43 +109,6 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.D)) {
-			transform.Rotate (0, 0, -turnSpeed);
-		}
-		if (Input.GetKey (KeyCode.A)) {
-			transform.Rotate (0, 0, turnSpeed);
-		}
-
-
-		if(Input.GetKeyDown("s")){
-			left = true;
-		}
-		if(Input.GetKeyUp("s")){
-			left = false;
-		}
-
-		if(Input.GetKeyDown("a")){
-			driftLeft = true;
-		}
-
-		if(Input.GetKeyUp("a")){
-			driftLeft = false;
-		}
-
-		if(Input.GetKeyDown("d")){
-			driftRight = true;
-		}
-
-		if(Input.GetKeyUp("d")){
-			driftRight = false;
-		}
-
-//		xspeep *= friction;
-		driftPowerRight *= driftFriction;
-		driftPowerLeft *= driftFriction;
-		transform.Translate(Vector3.right * xspeep);
-		transform.Translate(Vector3.down * driftPowerLeft);
-		transform.Translate(Vector3.up * driftPowerRight);
 
 	}
 
@@ -172,93 +135,58 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-
-		if(right){
-			xspeep += power;
-			if (xspeep >= xspeepMax)
-				xspeep = xspeepMax;
-		}
-		if(left){
-			xspeep -= power;
-			if (xspeep <= xspeepMin)
-				xspeep = xspeepMin;
-		}
-		if (driftRight) {
-			driftPowerRight += driftPower;
-			xspeep -= power / driftCoef;
-
-		}
-		if (driftLeft) {
-			driftPowerLeft += driftPower;
-			xspeep -= power / driftCoef;
-
-		}
-
-		if (Input.GetMouseButtonUp(0) && firstTap && canDrive) {
+		if (Input.GetMouseButtonUp (0) && firstTap && canDrive) {
 			firstTap = false;
 			playing = true;
 		}
 
 		if(canDrive && playing){
 
-//			if (playSoundOnce) {
-//				SoundControl.instance.engineStill.Stop ();
-//				SoundControl.instance.engineRunning.Play ();
-//				playSoundOnce = false;
-//			}
-//			stamina -= staminaConsumption;
-//
-//			if (stamina < 0f) {
-//				stamina = 0f;
-//				sleeping = true;
-//				StartCoroutine (Stop (5f));
-//				StartCoroutine (Sleeping ());
-//
-//			}
-//
-//			fuel -= fuelConsumption;
-//			if (fuel < 0f) {
-//				fuel = 0f;
-//				noFuel = true;
-//				StartCoroutine (Stop (5f));
-//			}
-//			//converting the object euler angle's magnitude from to Radians    
-//			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
-//
-//			if (Input.GetMouseButton (0)) {
-////				if (Input.GetMouseButtonDown (0)) {
-////					int rand = Random.Range (0, 2);
-////					if (rand == 0) {
-////						SoundControl.instance.PlaySound (SoundControl.instance.schreech);
-////					}
-////				}
-//
-//
-//				//rotate object Right & Left
-//				if (Input.mousePosition.x > 540) {
-//					carRot.z -= turnSpeed;
-//				} else {
-//					carRot.z += turnSpeed;
-//				}
-//			}
-//				
-//			//move object Forward & Backward
-//
-//			carPos.x += (Mathf.Cos (angle) * speedX) * Time.deltaTime;
-//			carPos.y += (Mathf.Sin (angle) * speedY) * Time.deltaTime;
-//			
-////			if (Input.GetKey (KeyCode.DownArrow)) {
-////				carPos.x += Mathf.Cos (angle) * Time.deltaTime;
-////				carPos.y += Mathf.Sin (angle) * Time.deltaTime;    
-////			}
-//
-//
-//			//Apply
-//			carTrans.position = carPos;
-//			carTrans.rotation = Quaternion.Euler (carRot);
-//			score += scorePlus;
-//			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
-//
+			if (playSoundOnce) {
+				SoundControl.instance.engineStill.Stop ();
+				SoundControl.instance.engineRunning.Play ();
+				playSoundOnce = false;
+			}
+			stamina -= staminaConsumption;
+
+			if (stamina < 0f) {
+				stamina = 0f;
+				sleeping = true;
+				StartCoroutine (Stop (5f));
+				StartCoroutine (Sleeping ());
+
+			}
+
+			fuel -= fuelConsumption;
+			if (fuel < 0f) {
+				fuel = 0f;
+				noFuel = true;
+				StartCoroutine (Stop (5f));
+			}
+			//converting the object euler angle's magnitude from to Radians    
+			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
+
+			if (Input.GetMouseButton (0)) {
+
+				//rotate object Right & Left
+				if (Input.mousePosition.x > 540) {
+					carRot.z -= turnSpeed;
+				} else {
+					carRot.z += turnSpeed;
+				}
+			}
+				
+			//move object Forward & Backward
+
+			carPos.x += (Mathf.Cos (angle) * speed) * Time.deltaTime;
+			carPos.y += (Mathf.Sin (angle) * speed) * Time.deltaTime;
+
+			//Apply
+			carTrans.position = carPos;
+			carTrans.rotation = Quaternion.Euler (carRot);
+			score += scorePlus;
+			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
+
 		}
 
 		fuelBar.fillAmount = fuel/100f;
