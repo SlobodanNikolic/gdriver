@@ -61,6 +61,34 @@ public class Player : MonoBehaviour {
 
 	public int inventoryFuel;
 	public int inventoryEnergy;
+	public float speedX;
+	public float speedY;
+	public float speedMinusOnHit;
+
+
+
+
+	//TEstiranje
+	public float xspeep = 0f;
+	public float power = 0.001f;
+	public float friction = 0.95f;
+	public bool right = false;
+	public bool left = false;
+
+	public float fuel2 = 2;
+
+	public float driftPowerRight;
+	public float driftPowerLeft;
+	public bool driftRight;
+	public bool driftLeft;
+	public float driftPower;
+
+	public float xspeepMax;
+	public float xspeepMin;
+	public float driftFriction;
+
+	public float driftCoef;
+	public float driftStopTime;
 
 	void Awake(){
 		// Turn off v-sync
@@ -81,40 +109,91 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-//
-//		if (Input.GetMouseButton (0)) {
-//			if (Input.mousePosition.x < 540) {
-//				//Swing Left
-//				transform.RotateAround(transform.position, Vector3.forward, turnSpeed);
-//			} else {
-//				//Swing Right
-//				transform.RotateAround(transform.position, Vector3.forward, -turnSpeed);
-//			}
-//		}
+		if (Input.GetKey (KeyCode.D)) {
+			transform.Rotate (0, 0, -turnSpeed);
+		}
+		if (Input.GetKey (KeyCode.A)) {
+			transform.Rotate (0, 0, turnSpeed);
+		}
 
+
+		if(Input.GetKeyDown("s")){
+			left = true;
+		}
+		if(Input.GetKeyUp("s")){
+			left = false;
+		}
+
+		if(Input.GetKeyDown("a")){
+			driftLeft = true;
+		}
+
+		if(Input.GetKeyUp("a")){
+			driftLeft = false;
+		}
+
+		if(Input.GetKeyDown("d")){
+			driftRight = true;
+		}
+
+		if(Input.GetKeyUp("d")){
+			driftRight = false;
+		}
+
+//		xspeep *= friction;
+		driftPowerRight *= driftFriction;
+		driftPowerLeft *= driftFriction;
+		transform.Translate(Vector3.right * xspeep);
+		transform.Translate(Vector3.down * driftPowerLeft);
+		transform.Translate(Vector3.up * driftPowerRight);
 
 	}
 
 	public void CarHit(){
-//		if(!hitParticles.isPlaying)
-//		{
-			speed -= 2f;
-			hitParticles.Play();
-			cam.notShaking = false;
-			SoundControl.instance.PlaySound (SoundControl.instance.carCrash);
-			Invoke ("StopShaking", 0.5f);
-//		}
+		speed -= speedMinusOnHit;
+		hitParticles.Play();
+		cam.notShaking = false;
+		SoundControl.instance.PlaySound (SoundControl.instance.carCrash);
+		Invoke ("StopShaking", 0.5f);
 	}
 
 	public void StopShaking(){
 		cam.notShaking = true;
-		speed += 2f;
+		speed += speedMinusOnHit;
+	}
+
+	public void StopLeftDrift(){
+		driftLeft = false;
+	}
+
+	public void StopRightDrift(){
+		driftRight = false;
 	}
 
 	void FixedUpdate ()
 	{
-		
+
+		if(right){
+			xspeep += power;
+			if (xspeep >= xspeepMax)
+				xspeep = xspeepMax;
+		}
+		if(left){
+			xspeep -= power;
+			if (xspeep <= xspeepMin)
+				xspeep = xspeepMin;
+		}
+		if (driftRight) {
+			driftPowerRight += driftPower;
+			xspeep -= power / driftCoef;
+
+		}
+		if (driftLeft) {
+			driftPowerLeft += driftPower;
+			xspeep -= power / driftCoef;
+
+		}
+
 		if (Input.GetMouseButtonUp(0) && firstTap && canDrive) {
 			firstTap = false;
 			playing = true;
@@ -122,85 +201,86 @@ public class Player : MonoBehaviour {
 
 		if(canDrive && playing){
 
-			if (playSoundOnce) {
-				SoundControl.instance.engineStill.Stop ();
-				SoundControl.instance.engineRunning.Play ();
-				playSoundOnce = false;
-			}
-			stamina -= staminaConsumption;
-
-			if (stamina < 0f) {
-				stamina = 0f;
-				StartCoroutine (Stop (5f));
-				StartCoroutine (Sleeping ());
-				sleeping = true;
-			}
-
-			fuel -= fuelConsumption;
-			if (fuel < 0f) {
-				fuel = 0f;
-				noFuel = true;
-				StartCoroutine (Stop (5f));
-			}
-			//converting the object euler angle's magnitude from to Radians    
-			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
-
-			if (Input.GetMouseButton (0)) {
-				if (Input.GetMouseButtonDown (0)) {
-					int rand = Random.Range (0, 2);
-					if (rand == 0) {
-						SoundControl.instance.PlaySound (SoundControl.instance.schreech);
-					}
-				}
-					
-//				if (oneTimeTrail) {
-//					lastTrailLeft = Instantiate (trailLeft, lTPos, Quaternion.identity, this.transform);
-//					lastTrailLeft.SetActive (true);
-//					lastTrailRight = Instantiate (trailLeft, lTPos, Quaternion.identity, this.transform);
-//					lastTrailRight.SetActive (true);
-//					oneTimeTrail = false;
-//				}
-
-//				trailLeft.SetActive (true);
-//				trailRight.SetActive (true);
-
-				//rotate object Right & Left
-				if (Input.mousePosition.x > 540) {
-					carRot.z -= turnSpeed;
-				} else {
-					carRot.z += turnSpeed;
-				}
-			}
-
-//			if (Input.GetMouseButtonUp(0)) {
-//				if (lastTrailLeft != null) {
-//					lastTrailLeft.transform.SetParent (null);
-//					lastTrailRight.transform.SetParent (null);
-//				}
-//					oneTimeTrail = true;
+//			if (playSoundOnce) {
+//				SoundControl.instance.engineStill.Stop ();
+//				SoundControl.instance.engineRunning.Play ();
+//				playSoundOnce = false;
 //			}
-
-			//move object Forward & Backward
-
-				carPos.x += (Mathf.Cos (angle) * speed) * Time.deltaTime;
-				carPos.y += (Mathf.Sin (angle) * speed) * Time.deltaTime;
-			
-	//		if (Input.GetKey (KeyCode.DownArrow)) {
-	//			carPos.x += Mathf.Cos (angle) * Time.deltaTime;
-	//			carPos.y += Mathf.Sin (angle) * Time.deltaTime;    
-	//		}
-
-
-			//Apply
-			carTrans.position = carPos;
-			carTrans.rotation = Quaternion.Euler (carRot);
-			score += scorePlus;
-			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
-
+//			stamina -= staminaConsumption;
+//
+//			if (stamina < 0f) {
+//				stamina = 0f;
+//				sleeping = true;
+//				StartCoroutine (Stop (5f));
+//				StartCoroutine (Sleeping ());
+//
+//			}
+//
+//			fuel -= fuelConsumption;
+//			if (fuel < 0f) {
+//				fuel = 0f;
+//				noFuel = true;
+//				StartCoroutine (Stop (5f));
+//			}
+//			//converting the object euler angle's magnitude from to Radians    
+//			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
+//
+//			if (Input.GetMouseButton (0)) {
+////				if (Input.GetMouseButtonDown (0)) {
+////					int rand = Random.Range (0, 2);
+////					if (rand == 0) {
+////						SoundControl.instance.PlaySound (SoundControl.instance.schreech);
+////					}
+////				}
+//
+//
+//				//rotate object Right & Left
+//				if (Input.mousePosition.x > 540) {
+//					carRot.z -= turnSpeed;
+//				} else {
+//					carRot.z += turnSpeed;
+//				}
+//			}
+//				
+//			//move object Forward & Backward
+//
+//			carPos.x += (Mathf.Cos (angle) * speedX) * Time.deltaTime;
+//			carPos.y += (Mathf.Sin (angle) * speedY) * Time.deltaTime;
+//			
+////			if (Input.GetKey (KeyCode.DownArrow)) {
+////				carPos.x += Mathf.Cos (angle) * Time.deltaTime;
+////				carPos.y += Mathf.Sin (angle) * Time.deltaTime;    
+////			}
+//
+//
+//			//Apply
+//			carTrans.position = carPos;
+//			carTrans.rotation = Quaternion.Euler (carRot);
+//			score += scorePlus;
+//			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
+//
 		}
 
 		fuelBar.fillAmount = fuel/100f;
 		staminaBar.fillAmount = stamina/100f;
+
+//		transform.Translate (transform.up * speed);
+	}
+
+	void OnDrawGizmos()
+	{
+		Color color;
+		color = Color.red;
+		// local up
+		DrawHelperAtCenter(this.transform.up, color, 2f);
+	}
+
+	private void DrawHelperAtCenter(
+		Vector3 direction, Color color, float scale)
+	{
+		Gizmos.color = color;
+		Vector3 destination = transform.position + direction * scale;
+		Gizmos.DrawLine(transform.position, destination);
 	}
 
 	public IEnumerator Stop(float time){
@@ -232,6 +312,8 @@ public class Player : MonoBehaviour {
 	}
 
 	public IEnumerator Sleeping(){
+		Debug.Log ("Sleeping");
+		sleeping = true;
 		while (sleeping) {
 			for (int i = 0; i < zObjects.Length; i++) {
 				zObjects [i].SetActive (true);

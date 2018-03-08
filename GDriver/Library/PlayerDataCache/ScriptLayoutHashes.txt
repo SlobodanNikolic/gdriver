@@ -1,4 +1,4 @@
-iOS
+Android
 406109c4d8bc6d47b4aca3bd75ada264 Assembly-CSharp.dll:.FuelEmpty
 1e26f3af5943abbf3baed53c38e03365 Assembly-CSharp.dll:.CarShop
 c96b60f68a39284a24ff99c71f8c412e Assembly-CSharp.dll:.SoundControl
@@ -14,6 +14,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 6af7378a45ad6da4992a71ef50ddc2eb UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 6af7378a45ad6da4992a71ef50ddc2eb UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 af723155c251fcfa0e66530a75f3ea4c UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Splash
 1f021e4cc5252f289ed4ca0eb4ed86aa Assembly-CSharp.dll:.CreateBarcode
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput

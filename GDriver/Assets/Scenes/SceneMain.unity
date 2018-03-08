@@ -228,9 +228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPos: {x: 0, y: 0, z: 0}
-  speed: 5
-  turnSpeed: 5
-  fuel: 100
+  speed: 0.1
+  turnSpeed: 3
+  fuel: 1000
   carTrans: {fileID: 0}
   carPos: {x: 0, y: 0, z: 0}
   carRot: {x: 0, y: 0, z: 0}
@@ -238,9 +238,9 @@ MonoBehaviour:
   playing: 0
   firstTap: 1
   fuelConsumption: 0.05
-  stamina: 100
+  stamina: 1000
   staminaConsumption: 0.1
-  health: 100
+  health: 1000
   canDrive: 1
   topTilePos: 38
   backupRoad: {fileID: 2054771751}
@@ -274,6 +274,23 @@ MonoBehaviour:
   points: 0
   inventoryFuel: 0
   inventoryEnergy: 0
+  speedX: 5
+  speedY: 5
+  speedMinusOnHit: 0
+  xspeep: 0
+  power: 0.005
+  friction: 0.95
+  right: 0
+  left: 0
+  fuel2: 2
+  driftPowerRight: 0
+  driftPowerLeft: 0
+  driftRight: 0
+  driftLeft: 0
+  driftPower: 0.004
+  xspeepMax: 0.1
+  xspeepMin: 0
+  driftFriction: 0.95
 --- !u!212 &17497521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2806,6 +2823,7 @@ RectTransform:
   - {fileID: 345600277}
   - {fileID: 484882385}
   - {fileID: 151309614}
+  - {fileID: 908613835}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4549,7 +4567,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1748072908620888, guid: d83a56a068cc26648aa4bf5796d1e500, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114905439531000922, guid: d83a56a068cc26648aa4bf5796d1e500,
         type: 2}
@@ -5152,6 +5170,86 @@ Transform:
   m_Father: {fileID: 1576973396}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &908613834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 908613835}
+  - component: {fileID: 908613837}
+  - component: {fileID: 908613836}
+  - component: {fileID: 908613838}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &908613835
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908613834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4276616, y: 0.4276617, z: 0.4276617}
+  m_Children: []
+  m_Father: {fileID: 444643682}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 1920}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &908613836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908613834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: f94dd38c0070a4c4e9a90e83ff0a78e2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &908613837
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908613834}
+--- !u!114 &908613838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908613834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f074516208d4850a05e980f3489d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &921995320
 GameObject:
   m_ObjectHideFlags: 0
@@ -5214,7 +5312,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2343bcade01724756bbeaf327f334678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12890,7 +12988,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2343bcade01724756bbeaf327f334678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -13018,7 +13116,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2343bcade01724756bbeaf327f334678, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

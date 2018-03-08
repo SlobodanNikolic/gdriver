@@ -98,19 +98,21 @@ public class Game : MonoBehaviour {
 
 	public void FuelPlus(){
 		if (player.fuel < 100f) {
-			player.inventoryFuel--;
+			player.inventoryFuel-=10;
 			inventoryFuelText.text = player.inventoryFuel.ToString ();
-			player.fuel += 1f;
+			player.fuel += 10f;
 		}
 	}
 
 	public void EnergyPlus(){
 		if (player.stamina < 100f) {
-			player.inventoryEnergy--;
+			player.inventoryEnergy-=10;
 			inventoryEnergyText.text = player.inventoryEnergy.ToString ();
-			player.stamina += 1f;
+			player.stamina += 10f;
 		}
 	}
+
+
 
 	public void CloseInventory(){
 		inventory.SetActive (false);

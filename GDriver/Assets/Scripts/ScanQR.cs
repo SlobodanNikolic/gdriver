@@ -64,7 +64,7 @@ public class ScanQR : MonoBehaviour
                 TextHeader.text = "";
             }
             //TextHeader.text += "Found: " + barCodeType + " / " + barCodeValue + "\n";
-            TextHeader.text = barCodeValue;
+//            TextHeader.text = barCodeValue;
             ParseQRContent(barCodeValue);
             RestartTime += Time.realtimeSinceStartup + 1f;
 
