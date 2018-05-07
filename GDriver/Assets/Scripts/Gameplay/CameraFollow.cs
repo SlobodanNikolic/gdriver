@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour {
 	public Transform whoToFollow;
 	public bool notShaking;
 	public float power;
+	public float offset;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +17,7 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (notShaking) {
-			transform.position = new Vector3 (whoToFollow.position.x, whoToFollow.position.y + 5f, transform.position.z);
+			transform.position = new Vector3 (whoToFollow.position.x, whoToFollow.position.y - offset, transform.position.z);
 		} else {
 			float newX = whoToFollow.position.x + Random.Range (-power / 2f, power / 2f);
 			float newY = whoToFollow.position.y + 5f + Random.Range (-power / 2f, power / 2f);

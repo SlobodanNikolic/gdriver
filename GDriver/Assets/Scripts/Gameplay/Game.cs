@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
+	public enum FROM_TILE
+	{
+		up, left, right
+	};
+
 	public GameObject hud;
 	public GameObject shop;
 	public GameObject tapToStart;
@@ -21,6 +26,8 @@ public class Game : MonoBehaviour {
 	public Text inventoryEnergyText;
 
 	void Awake(){
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 60;
 		instance = this;
 	}
 

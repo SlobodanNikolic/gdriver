@@ -90,10 +90,17 @@ public class Player : MonoBehaviour {
 	public float driftCoef;
 	public float driftStopTime;
 
+	public Vector2 velocity;
+	public bool hitLeft;
+	public bool hitRight;
+	public bool canSteer = true;
+	public Collider2D leftCol;
+	public Collider2D rightCol;
+	public Collider2D frontCol;
+
+
 	void Awake(){
 		// Turn off v-sync
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;
 		startPos = transform.position;
 	}
 
@@ -109,6 +116,62 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetMouseButtonUp (0) && firstTap && canDrive) {
+			firstTap = false;
+			playing = true;
+		}
+
+		if(canDrive && playing){
+
+			if (playSoundOnce) {
+				SoundControl.instance.engineStill.Stop ();
+				SoundControl.instance.engineRunning.Play ();
+				playSoundOnce = false;
+			}
+			stamina -= staminaConsumption;
+
+			if (stamina < 0f) {
+				stamina = 0f;
+				sleeping = true;
+				StartCoroutine (Stop (5f));
+				StartCoroutine (Sleeping ());
+			}
+
+			fuel -= fuelConsumption;
+			if (fuel < 0f) {
+				fuel = 0f;
+				noFuel = true;
+				StartCoroutine (Stop (5f));
+			}
+			//converting the object euler angle's magnitude from to Radians    
+			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
+
+			if (Input.GetMouseButton (0) && canSteer) {
+
+				//rotate object Right & Left
+				if (Input.mousePosition.x > 540) {
+					carRot.z -= turnSpeed;
+				} else {
+					carRot.z += turnSpeed;
+				}
+			}
+
+			//move object Forward & Backward
+
+			carPos.x += (Mathf.Cos (angle) * speed) * Time.deltaTime;
+			carPos.y += (Mathf.Sin (angle) * speed) * Time.deltaTime;
+
+			carTrans.position = carPos;
+			//			GetComponent<Rigidbody2D>().position = carPos;
+
+			carTrans.rotation = Quaternion.Euler (carRot);
+			score += scorePlus;
+			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
+
+		}
+
+		fuelBar.fillAmount = fuel/100f;
+		staminaBar.fillAmount = stamina/100f;
 
 	}
 
@@ -135,63 +198,7 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		if (Input.GetMouseButtonUp (0) && firstTap && canDrive) {
-			firstTap = false;
-			playing = true;
-		}
-
-		if(canDrive && playing){
-
-			if (playSoundOnce) {
-				SoundControl.instance.engineStill.Stop ();
-				SoundControl.instance.engineRunning.Play ();
-				playSoundOnce = false;
-			}
-			stamina -= staminaConsumption;
-
-			if (stamina < 0f) {
-				stamina = 0f;
-				sleeping = true;
-				StartCoroutine (Stop (5f));
-				StartCoroutine (Sleeping ());
-
-			}
-
-			fuel -= fuelConsumption;
-			if (fuel < 0f) {
-				fuel = 0f;
-				noFuel = true;
-				StartCoroutine (Stop (5f));
-			}
-			//converting the object euler angle's magnitude from to Radians    
-			angle = carTrans.eulerAngles.magnitude * Mathf.Deg2Rad;
-
-			if (Input.GetMouseButton (0)) {
-
-				//rotate object Right & Left
-				if (Input.mousePosition.x > 540) {
-					carRot.z -= turnSpeed;
-				} else {
-					carRot.z += turnSpeed;
-				}
-			}
-				
-			//move object Forward & Backward
-
-			carPos.x += (Mathf.Cos (angle) * speed) * Time.deltaTime;
-			carPos.y += (Mathf.Sin (angle) * speed) * Time.deltaTime;
-
-			//Apply
-			carTrans.position = carPos;
-			carTrans.rotation = Quaternion.Euler (carRot);
-			score += scorePlus;
-			scoreLabel.text = Mathf.RoundToInt (score).ToString ();
-
-		}
-
-		fuelBar.fillAmount = fuel/100f;
-		staminaBar.fillAmount = stamina/100f;
-
+		
 //		transform.Translate (transform.up * speed);
 	}
 
@@ -227,6 +234,8 @@ public class Player : MonoBehaviour {
 
 	}
 
+
+
 	void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log (other.name);
 		Debug.Log (other.tag);
@@ -237,6 +246,65 @@ public class Player : MonoBehaviour {
 		} else {
 			CarHit ();
 		}
+	}
+
+	void OnCollisionEnter2D(Collision2D coll){
+//		if (coll.otherCollider.name == "LeftCollider") {
+//			if (!hitLeft)
+//				StartCoroutine (CollisionLeft (0.1f));
+//		} else if (coll.otherCollider.name == "RightCollider") {
+//			if (!hitRight)
+//				StartCoroutine (CollisionRight (0.1f));
+//		} else {
+//			Debug.Log (coll.collider.transform.position.x + " : " + transform.position.x);
+//			speed = 0f;
+//		}
+	}
+
+	public IEnumerator CollisionLeft (float time){
+		hitLeft = true;
+		canSteer = false;
+//		GetComponent<Collider2D> ().enabled = false;
+		leftCol.enabled = false;
+		rightCol.enabled = false;
+
+		for (float i = 0f; i <= time;) {
+			i += Time.deltaTime;
+			carRot.z -= turnSpeed;
+
+			yield return null;
+		}
+		hitLeft = false;
+		canSteer = true;
+//		GetComponent<Collider2D> ().enabled = true;
+		leftCol.enabled = true;
+		rightCol.enabled = true;
+
+
+	}
+
+	public IEnumerator CollisionRight (float time){
+		hitRight = true;
+		canSteer = false;
+		rightCol.enabled = false;
+		leftCol.enabled = false;
+
+
+//		GetComponent<Collider2D> ().enabled = false;
+
+		for (float i = 0f; i <= time;) {
+			i += Time.deltaTime;
+			carRot.z += turnSpeed;
+
+			yield return null;
+		}
+		hitRight = false;
+		canSteer = true;
+		rightCol.enabled = true;
+		leftCol.enabled = true;
+
+//		GetComponent<Collider2D> ().enabled = true;
+
 	}
 
 	public IEnumerator Sleeping(){
